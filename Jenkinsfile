@@ -1,16 +1,21 @@
 pipeline {
-    agent any
-    triggers {
-      pollSCM '*/5 * * * *'
+  agent any
+  triggers {
+    pollSCM '*/5 * * * *'
+  }
+  tools {
+    nodejs "Node18"
+  }
+  stages {
+    stage('Install') {
+      steps {
+        sh 'npm install'
+      }
     }
-    tools {
-      nodejs "Node18"
+    stage('Test') {
+      steps {
+        sh 'npm test'
+      }
     }
-    stages {
-        stage('Install') {
-            steps {
-                sh 'npm install'
-            }
-        }
-    }
+  }
 }
