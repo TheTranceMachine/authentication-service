@@ -1,7 +1,13 @@
 pipeline {
   agent any
+  # Check why its not working
   triggers {
-    pollSCM '*/5 * * * *'
+    pollSCM 'H/5 * * * *'
+  }
+  environment {
+    registry = "grzsmo/authentication-service"
+    registryCredential = 'docker-credentials'
+    dockerImage = ''
   }
   tools {
     nodejs "Node18"
@@ -15,6 +21,22 @@ pipeline {
     stage('Test') {
       steps {
         sh 'npm run test:ci'
+      }
+    }
+    stage('Build image') {
+      steps {
+        script {
+          dockerImage = docker.build registry + ":latest"
+        }
+      }
+    }
+    stage('Push image') {
+      steps {
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        } 
       }
     }
   }
