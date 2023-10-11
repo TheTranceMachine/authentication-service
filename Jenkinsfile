@@ -4,9 +4,9 @@ pipeline {
       pollSCM '*/5 * * * *'
     }
     stages {
-        stage('Hello') {
+        stage('Build') {
             steps {
-                echo 'Hello World'
+                sh 'npm install'
             }
         }
     }
