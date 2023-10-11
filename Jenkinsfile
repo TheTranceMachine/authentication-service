@@ -3,8 +3,11 @@ pipeline {
     triggers {
       pollSCM '*/5 * * * *'
     }
+    tools {
+      nodejs "node"
+    }
     stages {
-        stage('Build') {
+        stage('Install') {
             steps {
                 sh 'npm install'
             }
