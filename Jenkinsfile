@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  # Check why its not working
   triggers {
     pollSCM 'H/5 * * * *'
   }
