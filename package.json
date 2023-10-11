@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "mocha ./tests/*.spec.js",
+    "test:ci": "mocha ./tests/*.spec.js --exit",
     "test:watch": "mocha --watch ./tests/*.spec.js"
   },
   "keywords": [],
