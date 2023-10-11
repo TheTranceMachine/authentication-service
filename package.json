@@ -1,7 +1,7 @@
 {
-  "name": "crud",
+  "name": "authentication_service",
   "version": "1.0.1",
-  "description": "",
+  "description": "Authentication service with JWT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
