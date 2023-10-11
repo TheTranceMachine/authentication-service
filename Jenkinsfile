@@ -4,7 +4,7 @@ pipeline {
       pollSCM '*/5 * * * *'
     }
     tools {
-      nodejs "node18"
+      nodejs "Node18"
     }
     stages {
         stage('Install') {
