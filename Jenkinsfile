@@ -23,21 +23,28 @@ pipeline {
         sh 'npm run test:ci'
       }
     }
-    stage('Build image') {
+    stage('Build') {
       steps {
-        script {
-          dockerImage = docker.build registry + ":latest"
-        }
+        sh '''#!/bin/bash
+        docker build -t grzsmo/authentication-service:latest .
+        '''
       }
     }
-    stage('Push image') {
-      steps {
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        } 
-      }
-    }
+    // stage('Build image') {
+    //   steps {
+    //     script {
+    //       dockerImage = docker.build registry + ":latest"
+    //     }
+    //   }
+    // }
+    // stage('Push image') {
+    //   steps {
+    //     script {
+    //       docker.withRegistry( '', registryCredential ) {
+    //         dockerImage.push()
+    //       }
+    //     } 
+    //   }
+    // }
   }
 }
