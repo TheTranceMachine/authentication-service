@@ -10,6 +10,7 @@ pipeline {
   }
   tools {
     nodejs "Node18"
+    dockerTool "Docker"
   }
   stages {
     stage('Install') {
