@@ -26,7 +26,7 @@ pipeline {
     stage('Build') {
       steps {
         sh '''#!/bin/bash
-        docker build -t grzsmo/authentication-service:latest .
+        docker build -v /var/run/docker.sock:/var/run/docker.sock -t grzsmo/authentication-service:latest .
         '''
       }
     }
