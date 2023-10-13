@@ -22,7 +22,7 @@ pipeline {
     }
   }
   triggers {
-    pollSCM('H */5 * * * *')
+    pollSCM('H/15 * * * *')
   }
   tools {
     nodejs "Node18"
