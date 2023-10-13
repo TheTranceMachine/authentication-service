@@ -50,20 +50,25 @@ pipeline {
     //     }
     //   }
     // }
-    stage('Build image') {
+    stage('Login-Into-Docker') {
       steps {
         container('docker') {
-          dockerImage = docker.build registry + ":latest"
+          sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"'
         }
       }
     }
-    stage('Push image') {
+    stage('Push-Images-Docker-to-DockerHub') {
       steps {
         container('docker') {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        } 
+          sh 'docker push grzsmo/authentication-service:latest'
+        }
+      }
+    }
+    post {
+      always {
+        container('docker') {
+          sh 'docker logout'
+        }
       }
     }
   }
