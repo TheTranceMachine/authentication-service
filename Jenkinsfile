@@ -52,6 +52,11 @@ pipeline {
         }
       }
     }
+    stage('Deploying into k8s'){
+      steps{
+        sh 'kubectl apply -f ./kube/deployment.yml -n development'
+      }
+    }
   }
   post {
     always {

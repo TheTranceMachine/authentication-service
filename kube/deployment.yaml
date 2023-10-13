@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-service-deployment
+  labels:
+    app: authenticationService
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authenticationService
+  template:
+    metadata:
+      labels:
+        app: authenticationService
+    spec:
+      containers:
+      - name: authentication-service
+        image: grzsmo/authentication-service:latest
+        ports:
+        - containerPort: 8000
+       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-service-service
+  labels:
+    app: authenticationService
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+    nodePort: 32121
+  selector:
+    app: authenticationService
