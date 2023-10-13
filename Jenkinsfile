@@ -6,6 +6,15 @@ pipeline {
         kind: Pod
         spec:
           containers:
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - sleep
+            args:
+            - 99d
+            tty: true
+#            securityContext:
+#              privileged: true
           - name: docker
             image: docker:latest
             command:
