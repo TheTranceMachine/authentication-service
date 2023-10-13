@@ -24,11 +24,6 @@ pipeline {
   triggers {
     pollSCM 'H/5 * * * *'
   }
-  environment {
-    registry = "grzsmo/authentication-service"
-    registryCredential = 'docker-credentials'
-    dockerImage = ''
-  }
   tools {
     nodejs "Node18"
   }
@@ -43,13 +38,6 @@ pipeline {
         sh 'npm run test:ci'
       }
     }
-    // stage('Build') {
-    //   steps {
-    //     container('docker') {
-    //       sh 'docker build -t grzsmo/authentication-service:latest .'
-    //     }
-    //   }
-    // }
     stage('Login-Into-Docker') {
       steps {
         container('docker') {
