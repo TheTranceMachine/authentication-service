@@ -38,21 +38,21 @@ pipeline {
         sh 'npm run test:ci'
       }
     }
-    stage('Login-Into-Docker') {
+    stage('Login') {
       steps {
         container('docker') {
           sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"'
         }
       }
     }
-    stage('Push-Images-Docker-to-DockerHub') {
+    stage('Push') {
       steps {
         container('docker') {
           sh 'docker push grzsmo/authentication-service:latest'
         }
       }
     }
-    stage('Deploying into k8s'){
+    stage('Deploy'){
       steps{
         sh 'kubectl apply -f ./kube/deployment.yml -n development'
       }
