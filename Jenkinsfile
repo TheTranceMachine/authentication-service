@@ -45,9 +45,9 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh '''#!/bin/bash
-        docker build -t grzsmo/authentication-service:latest .
-        '''
+        container('docker') {
+          sh 'docker build -t grzsmo/authentication-service:latest .'
+        }
       }
     }
     // stage('Build image') {
