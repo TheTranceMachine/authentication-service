@@ -54,7 +54,7 @@ pipeline {
     }
     stage('Deploy'){
       steps {
-        withKubeConfig([serverUrl: 'https://kubernetes.default']) {
+        withKubeConfig([credentialsId: 'development-config', serverUrl: 'https://kubernetes.default']) {
           sh 'kubectl apply -f ./kube/deployment.yml -n development'
         }
       }
