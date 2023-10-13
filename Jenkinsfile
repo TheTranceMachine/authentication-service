@@ -43,28 +43,28 @@ pipeline {
         sh 'npm run test:ci'
       }
     }
-    stage('Build') {
-      steps {
-        container('docker') {
-          sh 'docker build -t grzsmo/authentication-service:latest .'
-        }
-      }
-    }
-    // stage('Build image') {
+    // stage('Build') {
     //   steps {
-    //     script {
-    //       dockerImage = docker.build registry + ":latest"
+    //     container('docker') {
+    //       sh 'docker build -t grzsmo/authentication-service:latest .'
     //     }
     //   }
     // }
-    // stage('Push image') {
-    //   steps {
-    //     script {
-    //       docker.withRegistry( '', registryCredential ) {
-    //         dockerImage.push()
-    //       }
-    //     } 
-    //   }
-    // }
+    stage('Build image') {
+      steps {
+        container('docker') {
+          dockerImage = docker.build registry + ":latest"
+        }
+      }
+    }
+    stage('Push image') {
+      steps {
+        container('docker') {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        } 
+      }
+    }
   }
 }
