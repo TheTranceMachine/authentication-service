@@ -14,6 +14,11 @@ pipeline {
             volumeMounts:
              - mountPath: /var/run/docker.sock
                name: docker-sock
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - cat
+            tty: true
           volumes:
           - name: docker-sock
             hostPath:
@@ -54,7 +59,7 @@ pipeline {
     }
     stage('Deploy'){
       steps {
-        withKubeConfig([credentialsId: 'development-config', serverUrl: 'https://kubernetes.default']) {
+        container('kubectl') {
           sh 'kubectl apply -f ./kube/deployment.yml -n development'
         }
       }
